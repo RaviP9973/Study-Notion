@@ -1,13 +1,14 @@
 import toast from "react-hot-toast";
 import { apiConnector } from "../apiconnector";
 import { profileEndpoints } from "../apis";
-import { clearAuthState } from "../../slices/authSlice"
+import { clearAuthState } from "../../slices/authSlice";
 
 const {
   GET_USER_ENROLLED_COURSES_API,
   UPDATE_PROFILE_PICTURE_API,
   UPDATE_USER_DETAILS_API,
-  DELETE_USER_PROFILE_API
+  DELETE_USER_PROFILE_API,
+  GET_INSTRUCTOR_DATA_API,
 } = profileEndpoints;
 // CONST {  } = profileEndpoints
 export async function getUserEnrolledCourses(token) {
@@ -82,7 +83,7 @@ export async function updatePersonalDetails(token, formData) {
   const toastId = toast.loading("updating details...");
   try {
     console.log(token);
-    console.log(formData)
+    console.log(formData);
     const { firstName, lastName, dateOfBirth, gender, contactNumber, about } =
       formData;
     const response = await apiConnector(
@@ -93,7 +94,7 @@ export async function updatePersonalDetails(token, formData) {
         Authorization: `Bearer ${token}`,
       }
     );
-    console.log(response)
+    console.log(response);
     if (!response.data.success) {
       throw new Error(response.data.message);
     }
@@ -111,34 +112,69 @@ export async function updatePersonalDetails(token, formData) {
 
     toast.success("Profile details updated");
   } catch (error) {
-    console.log("Error in updating profile api ....",error.message);
+    console.log("Error in updating profile api ....", error.message);
     toast.error(error.message);
   }
 
   toast.dismiss(toastId);
 }
-export async function deleteProfileFunction(token,password,navigate,dispatch){
+export async function deleteProfileFunction(
+  token,
+  password,
+  navigate,
+  dispatch
+) {
   const toastId = toast.loading("Deleting Your Profile");
   try {
-    console.log("yaha aa gya")
-    const response = await apiConnector("DELETE",DELETE_USER_PROFILE_API,{password},{
-      Authorization: `Bearer ${token}`,
-    })
+    console.log("yaha aa gya");
+    const response = await apiConnector(
+      "DELETE",
+      DELETE_USER_PROFILE_API,
+      { password },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
 
-    console.log("response....",response)
-    if(!response.data.success){
+    console.log("response....", response);
+    if (!response.data.success) {
       throw new Error(response.data.message);
     }
 
     toast.success("Account Deleted");
-    await localStorage.removeItem("user");
-    await localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     dispatch(clearAuthState());
     navigate("/login");
   } catch (error) {
-    toast.dismiss(toastId)
-    console.log("Errorr in deleting profile...",error.message);
+    toast.dismiss(toastId);
+    console.log("Errorr in deleting profile...", error.message);
     toast.error(error.message);
   }
-  toast.dismiss(toastId)
+  toast.dismiss(toastId);
+}
+
+export async function getInstructorData(token) {
+  let result = [];
+  const toastId = toast.loading("loading...");
+
+  try {
+    const res = await apiConnector("GET",GET_INSTRUCTOR_DATA_API,null,{
+      Authorization : `Bearer ${token}`
+    })
+    console.log("GEt_Insructor api response",res);
+    if(!res.data.success){
+      throw new Error("Error in geting getInstructorDAta");
+      
+    }
+
+    result = res.data.data;
+
+  } catch (error) {
+    console.log("Error while get Instructor dashboard with stats api error ...",error);
+    toast.error("Could not get instructor data");
+  }
+
+  toast.dismiss(toastId);
+  return result;
 }

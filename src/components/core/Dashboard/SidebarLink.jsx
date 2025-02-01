@@ -16,13 +16,13 @@ const SidebarLink = ({link,iconName}) => {
     to={link.path}
     // what to do on click
 
-    className={`relative px-8 py-2 text-sm ${matchRoute(link.path) ? "bg-yellow-800" : "bg-opacity-0"}`}
+    className={`relative  text-sm `}
     >
 
         <span className={`absolute left-0 top-0 h-full  w-[0.2rem] bg-yellow-50 ${matchRoute(link.path) ? "opacity-100" : "opacity-0"}`}>
 
         </span>
-        <div className='flex items-center gap-x-2'>
+        <div className={`flex px-8 py-2 items-center gap-x-2 ${matchRoute(link.path) ? "bg-yellow-800 " : "bg-transparent"}`}>
             <Icon className="text-lg" />
             <span>{link.name}</span>
         </div>
