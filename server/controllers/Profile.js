@@ -4,6 +4,7 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 const courseProgress = require("../models/courseProgress");
+const Course = require("../models/Course");
 
 exports.updateProfile = async (req, res) => {
   try {
@@ -291,4 +292,36 @@ function convertSecondsToDuration(totalSeconds) {
   const seconds = totalSeconds % 60;
 
   return `${hours}h ${minutes}m ${seconds}s`;
+}
+
+exports.instructorDashboard = async(req,res) => {
+  try {
+    const courseDetails = await Course.find({instructor: req.user.id})
+
+    const courseData = courseDetails.map((course) => {
+      const totalStudentsEnrolled = course.studentEnrolled.length;
+      const totalAmountGenerated = totalStudentsEnrolled * course.price;
+
+      const courseDataWithStats = {
+        _id:course._id,
+        courseName: course.name,
+        courseDescription: course.courseDescription,
+        totalStudentsEnrolled,
+        totalAmountGenerated,
+      }
+      return courseDataWithStats
+    })
+
+    console.log("courseData" ,courseData)
+    return res.status(200).json({
+      success:true,
+      data:courseData
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success:false,
+      message:"Internal server error"
+    })
+  }
 }

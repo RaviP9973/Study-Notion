@@ -182,7 +182,7 @@ const Setting = () => {
                     Date of Birth
                   </label>
                   <input
-                    defaultValue={user?.additionalDetails.dateOfBirth || null}
+                    defaultValue={user?.additionalDetails?.dateOfBirth || null}
                     type="date"
                     name="dateOfBirth"
                     id="dateOfBirth"
@@ -195,7 +195,7 @@ const Setting = () => {
                     Gender
                   </label>
                   <select
-                    defaultValue={user?.additionalDetails.gender || null}
+                    defaultValue={user?.additionalDetails?.gender || null}
                     type="text"
                     name="gender"
                     id="gender"
@@ -216,7 +216,7 @@ const Setting = () => {
                     Contact Number
                   </label>
                   <input
-                    defaultValue={user?.additionalDetails.contactNumber || null}
+                    defaultValue={user?.additionalDetails?.contactNumber || null}
                     type="tel"
                     name="contactNumber"
                     id="contactNumber"
@@ -230,7 +230,7 @@ const Setting = () => {
                     About
                   </label>
                   <input
-                    defaultValue={user?.additionalDetails.about || null}
+                    defaultValue={user?.additionalDetails?.about || null}
                     type="text"
                     name="about"
                     id="about"

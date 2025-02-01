@@ -21,10 +21,10 @@ const CourseTable = ({ courses, setCourses }) => {
 <Table className="w-11/12 border-collapse border border-richblack-800 text-sm bg-richblack-900 text-richwhite-100 rounded-lg shadow-lg">
   <Thead className="bg-richblack-800">
     <Tr className="text-center border-b border-richblack-700">
-      <Th className="px-6 py-3 w-[30%] ">Courses</Th>
-      <Th className="px-6 py-3 w-[20%] ">Duration</Th>
-      <Th className="px-6 py-3 w-[20%] ">Price</Th>
-      <Th className="px-6 py-3 w-[30%] ">Actions</Th>
+      <Th className="px-6 py-3 w-[60%] ">Courses</Th>
+      <Th className="px-6 py-3 w-[10%] ">Duration</Th>
+      <Th className="px-6 py-3 w-[10%] ">Price</Th>
+      <Th className="px-6 py-3 w-[20%] ">Actions</Th>
     </Tr>
   </Thead>
   <Tbody>
@@ -50,9 +50,9 @@ const CourseTable = ({ courses, setCourses }) => {
               className="h-[150px] w-[220px] rounded-lg object-cover shadow-md border border-richblack-700"
             />
             <div className="flex flex-col gap-1">
-              <p className="font-semibold text-richwhite-100">{course.name}</p>
-              <p className="text-sm text-richgray-400">
-                {course.courseDescription}
+              <p className="font-semibold text-richwhite-100 truncate text-wrap max-w-[25-rem]">{course.name}</p>
+              <p className="text-sm text-richgray-400 truncate max-w-[25rem]">
+                {course.courseDescription} 
               </p>
               <p className="text-xs text-richgray-500">
                 Created: {new Date(course.createdAt).toLocaleDateString()}
@@ -71,9 +71,9 @@ const CourseTable = ({ courses, setCourses }) => {
 
           <Td className="px-6 py-3 text-center">{course.duration || "2h 25min"}</Td>
           <Td className="px-6 py-3 text-center font-semibold">
-            ${course.price}
+            Rs {course.price}
           </Td>
-          <Td className="px-6 py-3 h-full w-full flex gap-2 justify-center items-center border-2">
+          <Td className="px-6 py-3 h-full w-full flex flex-row gap-2 justify-center items-center my-auto">
             <button
               className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-all disabled:opacity-50"
               disabled={loading}

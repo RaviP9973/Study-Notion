@@ -6,7 +6,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import 'swiper/css/free-mode';
 import { Autoplay, Pagination, Navigation, FreeMode } from "swiper/modules";
-import ReactStars from "react-rating-stars-component";
 import { getAllRating } from "../../services/operations/ratingAndReviewsApi";
 import ReviewCard from "./ReviewCard";
 
@@ -31,12 +30,12 @@ const ReviewSlider = () => {
 
   return (
     loading ? (
-      <div className="flex justify-center items-center  w-full">
+      <div className="flex justify-center items-center  w-full ">
         <div className="loader "></div>
       </div>
     ) : (
       <div className="text-white">
-        <div className="w-full border ">
+        <div className="w-full  ">
           <Swiper
             spaceBetween={30}
             freeMode={true}

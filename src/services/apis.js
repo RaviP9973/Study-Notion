@@ -26,7 +26,8 @@ export const profileEndpoints = {
   GET_USER_DETAILS_API: BASE_URL + "/profile/getUserDetails",
   UPDATE_PROFILE_PICTURE_API: BASE_URL + "/profile/updateDisplayPicture",
   UPDATE_USER_DETAILS_API: BASE_URL + "/profile/updateProfile",
-  DELETE_USER_PROFILE_API: BASE_URL + "/profile/deleteProfile"
+  DELETE_USER_PROFILE_API: BASE_URL + "/profile/deleteProfile",
+  GET_INSTRUCTOR_DATA_API: BASE_URL + "/profile/instructorDashboard"
 }
 
 export const courseEndpoints = {
