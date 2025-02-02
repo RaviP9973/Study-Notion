@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../../../slices/cartSlice";
@@ -43,17 +43,20 @@ const CourseDetailsCard = ({
     toast.success("Link is copied to clipboard");
     //mujhe new window open krna h jisme sare apps khule
   };
+
   return (
-    <div className="absolute top-0 left-[50%] translate-y-[20%] translate-x-[55%] bg-richblack-700 rounded-lg overflow-hidden">
+    <div
+      className="absolute top-0 left-1/2 transform translate-x-1/2 translate-y-[20%] 
+    bg-richblack-700 rounded-lg shadow-lg overflow-hidden w-[420px]"
+    >
       <img
         src={thumbnail}
         alt="course thumbnail"
-        className="w-[400px] h-[200px] object-cover "
+        className="w-full h-[220px] object-cover"
       />
-      <div className="px-3 py-3 mb-5 flex flex-col gap-2 mt-4">
-        <div>
-          <p className="text-3xl font-semibold text-richblack-5">Rs. {price}</p>
-        </div>
+      <div className="p-5 flex flex-col gap-4">
+        <p className="text-3xl font-bold text-richblack-5">Rs. {price}</p>
+
         <div className="flex flex-col gap-3">
           <button
             onClick={
@@ -61,7 +64,8 @@ const CourseDetailsCard = ({
                 ? () => navigate("/dashboard/enrolled-courses")
                 : () => handleBuyCourse()
             }
-            className="w-full bg-yellow-50 py-3 text-richblack-900 text-lg font-semibold rounded-lg hover:scale-95 hover:bg-yellow-100 transition-all duration-300"
+            className="w-full bg-yellow-50 py-3 text-richblack-900 text-lg font-semibold 
+       rounded-lg hover:scale-95 hover:bg-yellow-100 transition-all duration-300"
           >
             {user && course?.studentEnrolled.includes(user?._id)
               ? "Go to course"
@@ -69,24 +73,36 @@ const CourseDetailsCard = ({
           </button>
 
           {!course?.studentEnrolled.includes(user?._id) && (
-            <button onClick={handleAddToCart}
-            className="w-full bg-richblack-900 py-3 text-white text-lg font-semibold rounded-lg hover:scale-95 hover:bg-yellow-100 transition-all duration-300"
-            >Add to Cart</button>
+            <button
+              onClick={handleAddToCart}
+              className="w-full bg-richblack-900 py-3 text-white text-lg font-semibold 
+         rounded-lg hover:scale-95 hover:bg-yellow-200 hover:text-black 
+         transition-all duration-300"
+            >
+              Add to Cart
+            </button>
           )}
         </div>
-        <div className="flex flex-col gap-2">
-          <p className="text-center text-richblack-100">30-Day Money-Back Guarantee</p>
-          <p>This Course Includes:</p>
-          <div>
-            {course?.instructions?.map((item, index) => (
-              <p key={index} className="text-caribbeangreen-200">
-                <span>{item}</span>
+
+        <div className="flex flex-col gap-2 ">
+          <p className="text-richblack-100">30-Day Money-Back Guarantee</p>
+          <p className="font-semibold">This Course Includes:</p>
+          <div className="border border-richblack-600 p-3 rounded-lg bg-richblack-800 flex flex-col gap-1">
+            {JSON.parse(course?.instructions || "[]")?.map((item, index) => (
+              <p key={index} className="text-caribbeangreen-200 text-sm">
+                • {item}
               </p>
             ))}
           </div>
         </div>
-        <div className="flex item-center justify-center ">
-          <button className="text-yellow-50" onClick={() => handleShare()}>Share</button>
+
+        <div className="flex items-center justify-center mt-2">
+          <button
+            className="text-yellow-50 font-medium hover:underline"
+            onClick={handleShare}
+          >
+            Share
+          </button>
         </div>
       </div>
     </div>
