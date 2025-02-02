@@ -6,6 +6,9 @@ import { Table, Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
 import ConfirmationModal from "../../../common/ConfimationModal"
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import { useNavigate } from "react-router-dom";
+import { MdDelete, MdEdit } from "react-icons/md";
+
+
 const CourseTable = ({ courses, setCourses }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
@@ -73,15 +76,15 @@ const CourseTable = ({ courses, setCourses }) => {
           <Td className="px-6 py-3 text-center font-semibold">
             Rs {course.price}
           </Td>
-          <Td className="px-6 py-3 h-full w-full flex flex-row gap-2 justify-center items-center my-auto">
+          <Td className="px-6 py-3  w-full flex flex-row gap-2 justify-center items-center my-auto">
             <button
-              className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-all disabled:opacity-50"
+              className="aspect-square w-10 flex items-center justify-center rounded-full text-white hover:bg-richblack-600 transition-all duration-300 disabled:opacity-50"
               disabled={loading}
               onClick={()=>{
                 navigate(`/dashboard/edit-course/${course._id}`)
               }}
             >
-              Edit
+              <MdEdit size={24} />
             </button>
             <button
               className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition-all disabled:opacity-50"
@@ -100,7 +103,10 @@ const CourseTable = ({ courses, setCourses }) => {
                 });
               }}
             >
-              Delete
+              <div className="aspect-square w-10 rounded-full bg-[#420606] flex justify-center items-center">
+
+              <MdDelete size={24} color="#963333"/>
+              </div>
             </button>
           </Td>
         </Tr>

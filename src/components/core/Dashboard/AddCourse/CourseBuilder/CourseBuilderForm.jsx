@@ -89,7 +89,6 @@ const CourseBuilderForm = () => {
       dispatch(setCourse(result));
       setEditSectionName(null);
       setValue("sectionName", "");
-
     }
 
     setLoading(false);

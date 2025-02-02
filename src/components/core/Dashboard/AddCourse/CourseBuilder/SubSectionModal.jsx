@@ -75,7 +75,7 @@ const SubSectionModal = ({
 
     if (currentValues.lectureVideo !== modalData.videoUrl);
     {
-      formData.append("video", currentValues.lectureVideo);
+      formData.append("video", currentValues.lectureVideo)
     }
 
     setLoading(true);

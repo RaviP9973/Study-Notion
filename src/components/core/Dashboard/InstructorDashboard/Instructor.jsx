@@ -41,14 +41,18 @@ const Instructor = () => {
     0
   );
   return (
-    <div className="text-white">
+    <div className="text-white border inset-0">
       <div>
         <h1>Hi {user?.firstName}</h1>
         <p>Let's start something new</p>
       </div>
 
       {loading ? (
-        <div className="loader"></div>
+        <div className="w-full h-[calc(100vh-3.5rem)] flex justify-center items-center">
+          <div className="loader">
+
+          </div>
+        </div>
       ) : courses.length > 0 ? (
         <div>
           <div>
