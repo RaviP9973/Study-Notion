@@ -18,7 +18,7 @@ const EditCourse = () => {
       const result = await fetchAllCourseDetails(courseId, token);
       if (result) {
         dispatch(setEditCourse(true));
-        dispatch(setCourse(result));
+        dispatch(setCourse(result.courseDetails));
         dispatch(setStep(1));
       }
 

@@ -33,7 +33,7 @@ const RequirementsField = ({
       validate: (value) => value.length > 0,
     });
     const data = getValues();
-    console.log("data",data);
+    // console.log("data",data);
     
     setRequirementList((data?.courseRequirements));
   }, []);

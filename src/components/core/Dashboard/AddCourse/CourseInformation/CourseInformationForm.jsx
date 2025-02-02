@@ -58,7 +58,7 @@ const CourseInformationForm = () => {
       setValue("courseRequirements", course.instructions);
       setValue("courseImage", course.thumbnail);
     }
-      console.log("couse",course);
+      // console.log("couse",course);
     getCetegories();
   }, []);
 

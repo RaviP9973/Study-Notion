@@ -1,21 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ControlBar, Player } from "video-react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { updateCompletedLectures } from "../../../slices/viewCourseSlice";
 import { markLectureAsComplete } from "../../../services/operations/courseDetailsAPI";
-import {
-  BigPlayButton,
-  LoadingSpinner,
-  PlaybackRateMenuButton,
-  ForwardControl,
-  ReplayControl,
-  CurrentTimeDisplay,
-  TimeDivider,
-} from "video-react";
-import { MdOutlinePlayCircleFilled } from "react-icons/md";
+
 import IconButton from "../../common/IconButton";
-// import '~video-react/dist/video-react.css';
+import ReactPlayer from "react-player";
+import { CiPlay1 } from "react-icons/ci";
+import { BsDisplayFill } from "react-icons/bs";
+import { CiRedo } from "react-icons/ci";
+
+
 
 const VideoDetails = () => {
   const { courseId, sectionId, subsectionId } = useParams();
@@ -31,29 +26,58 @@ const VideoDetails = () => {
   const [videoEnded, setVideoEnded] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // useEffect(() => {
+  //   const setVideoSpecificDetails = async () => {
+  //     if (!courseSectionData.length) return;
+  //     if (!courseId && !sectionId && !subsectionId) {
+  //       navigate("/dashboard/enrolled-courses");
+  //     } else {
+  //       // console.log("courseSectionData", courseSectionData);
+  //       if (sectionId) {
+  //         const filteredData = courseSectionData.filter(
+  //           (course) => course._id === sectionId
+  //         );
+  //         console.log("filteredData",filteredData)
+  //         const filteredVideoData = filteredData?.[0].subSection
+  //         .filter(
+  //           (data) => data._id === subsectionId
+  //         );
+
+  //         setVideoData(filteredVideoData[0]);
+  //         setVideoEnded(false);
+  //       }
+  //     }
+  //   };
+  //   setVideoSpecificDetails();
+  // }, [courseSectionData, courseEntireData, location.pathname]);
   useEffect(() => {
     const setVideoSpecificDetails = async () => {
       if (!courseSectionData.length) return;
-      if (!courseId && !sectionId && !subsectionId) {
+  
+      if (!sectionId || !subsectionId) {
         navigate("/dashboard/enrolled-courses");
-      } else {
-        // console.log("courseSectionData", courseSectionData);
-        if (sectionId) {
-          const filteredData = courseSectionData.filter(
-            (course) => course._id === sectionId
-          );
-          // console.log("filteredData",filteredData)
-          const filteredVideoData = filteredData?.[0].subSection.filter(
-            (data) => data._id === subsectionId
-          );
-
-          setVideoData(filteredVideoData[0]);
-          setVideoEnded(false);
-        }
+        return;
+      }
+  
+      const filteredData = courseSectionData.find(
+        (course) => course._id === sectionId
+      );
+  
+      if (!filteredData || !filteredData.subSection) return;
+  
+      const filteredVideoData = filteredData.subSection.find(
+        (data) => data._id === subsectionId
+      );
+  
+      if (filteredVideoData) {
+        setVideoData(filteredVideoData);
+        setVideoEnded(false);
       }
     };
+  
     setVideoSpecificDetails();
-  }, [courseSectionData, courseEntireData, location.pathname]);
+  }, [courseSectionData, courseId, sectionId, subsectionId, navigate, location.pathname]);
+  
 
   //first video
   const isFirstVideo = () => {
@@ -63,7 +87,7 @@ const VideoDetails = () => {
 
     const currentSubsectionIndex = courseSectionData[
       currentSectionIndex
-    ].subSection.findIndex((data) => data._id === sectionId);
+    ].subSection.findIndex((data) => data._id === subsectionId);
 
     if (currentSectionIndex === 0 && currentSubsectionIndex === 0) return true;
     else return false;
@@ -76,7 +100,7 @@ const VideoDetails = () => {
 
     const currentSubsectionIndex = courseSectionData[
       currentSectionIndex
-    ].subSection.findIndex((data) => data._id === sectionId);
+    ].subSection.findIndex((data) => data._id === subsectionId);
 
     if (
       currentSectionIndex === courseSectionData.length - 1 &&
@@ -95,7 +119,7 @@ const VideoDetails = () => {
 
     const currentSubsectionIndex = courseSectionData[
       currentSectionIndex
-    ].subSection.findIndex((data) => data._id === sectionId);
+    ].subSection.findIndex((data) => data._id === subsectionId);
 
     const noOfSubSections =
       courseSectionData[currentSectionIndex].subSection.length;
@@ -127,7 +151,7 @@ const VideoDetails = () => {
 
     const currentSubsectionIndex = courseSectionData[
       currentSectionIndex
-    ].subSection.findIndex((data) => data._id === sectionId);
+    ].subSection.findIndex((data) => data._id === subsectionId);
 
     const noOfSubSections =
       courseSectionData[currentSectionIndex].subSection.length;
@@ -171,82 +195,82 @@ const VideoDetails = () => {
     setLoading(false);
   };
   return (
-    <div className="text-white">
+    <div className="text-white px-5 h-[calc(100vh-3.5rem)] overflow-y-scroll scrollbar-hide">
       {!videoData ? (
         <div>No data found</div>
       ) : (
-        <div>
-          <Player
-            className="w-full relative"
+        <div className="relative ">
+          <ReactPlayer
+            url={videoData?.videoUrl}
+            height="100%"
+            width="100%"
+            controls
+            playIcon={<BsDisplayFill  size={24}/>}
+            style={{ backgroundColor: "#000000" }}
+            playing={true}
+            onEnded={() => {
+              setVideoEnded(true);
+            }}
             ref={playerRef}
-            src={videoData.videoUrl}
-            aspectRatio="16:9"
-            fluid={true}
-            autoPlay={false}
-            onEnded={() => setVideoEnded(true)}
-          >
-            <BigPlayButton position="center" />
+          />
+          {videoEnded && (
+            <div>
+              {!completedLectures.includes(subsectionId) && (
+                <div>
 
-            <LoadingSpinner />
-            <ControlBar>
-              <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
-              <ReplayControl seconds={5} order={7.1} />
-              <ForwardControl seconds={5} order={7.2} />
-              <TimeDivider order={4.2} />
-              <CurrentTimeDisplay order={4.1} />
-              <TimeDivider order={4.2} />
-            </ControlBar>
-            <TimeDivider order={4.2} />
-            <MdOutlinePlayCircleFilled />
-            {videoEnded && (
-              <div>
-                {!completedLectures.includes(subsectionId) && (
                   <IconButton
                     disabled={loading}
                     onclick={() => handleLectureCompletion()}
                     text={!loading ? "Mark as complete" : "Loading..."}
-                    customClasses={"bg-yellow-50"}
-                  />
-                )}
-                <IconButton
-                  disabled={loading}
-                  onclick={() => {
-                    if (playerRef?.current) {
-                      playerRef.current?.seek(0);
-                      setVideoEnded(false);
+                    customClasses={
+                      "bg-yellow-50 absolute top-[40%] left-[45%] bg-caribbeangreen-300"
                     }
-                  }}
-                  text={"Rewatch"}
-                  customClasses={"text-xl"}
-                />
-                <div>
-                  {!isFirstVideo() && (
-                    <button
-                      disabled={loading}
-                      onClick={goToPrevVideo}
-                      className="bg-yellow-50"
-                    >
-                      Prev
-                    </button>
-                  )}
-
-                  {!isLastVideo() && (
-                    <button
-                      disabled={loading}
-                      onClick={goToNextVideo}
-                      className="bg-yellow-50"
-                    >
-                      Next
-                    </button>
-                  )}
+                  />
                 </div>
+              )}
+              <IconButton
+                disabled={loading}
+                onclick={() => {
+                  if (playerRef?.current) {
+                    playerRef.current?.seekTo(0);
+                    setVideoEnded(false);
+                  }
+                }}
+                
+                customClasses={"text-xl absolute top-[50%] left-[50%]"}
+              >
+<CiRedo/>
+              </IconButton>
+              <div className="flex justify-between px-6 bg-richblack-800 py-3">
+                {!isFirstVideo() && (
+                  <button
+                    disabled={loading}
+                    onClick={goToPrevVideo}
+                    className="bg-yellow-50
+                    py-2 px-3 rounded-md text-richblack-900"
+                  >
+                    Prev
+                  </button>
+                )}
+
+                {!isLastVideo() && (
+                  <button
+                    disabled={loading}
+                    onClick={goToNextVideo}
+                    className="bg-yellow-50
+                    py-2 px-3 rounded-md text-richblack-900 "                  >
+                    Next
+                  </button>
+                )}
               </div>
-            )}
-          </Player>
+            </div>
+          )}
         </div>
       )}
-      <h1>{videoData?.title}</h1>
-      <p>{videoData?.description}</p>p
+      <div className="bg-richblack-800 p-4">
+        <h1 className="text-3xl text-richblack-5 mb-2">{videoData?.title}</h1>
+        <p className="text-richblack-100">{videoData?.description}</p>
+      </div>
     </div>
   );
 };
