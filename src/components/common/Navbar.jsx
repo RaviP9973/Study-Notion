@@ -94,10 +94,18 @@ const Navbar = () => {
         {/* Login / Signup / Dashboard */}
         <div className="flex gap-x-4 items-center ">
           {user && user.accountType !== "Instructor" && (
-            <Link to="/dashboard/cart" className="relative text-richblack-900 ">
-              <FaCartArrowDown size={24} className="bg-transparent text-richblack-5"/>
-              {totalItems > 0 && <span className="">{totalItems}</span>}
-            </Link>
+            <Link to="/dashboard/cart" className="relative text-richblack-900">
+            {/* Cart Icon */}
+            <FaCartArrowDown size={24} className="bg-transparent text-richblack-5" />
+          
+            {/* Badge for Total Items */}
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 min-w-[1.5rem] h-[1.5rem] flex items-center justify-center rounded-full bg-red-600 text-yellow-50 text-xs font-semibold animate-bounce">
+                {totalItems}
+              </span>
+            )}
+          </Link>
+          
           )}
           {token === null && (
             <Link to="/login">

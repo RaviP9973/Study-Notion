@@ -86,7 +86,7 @@ const CourseDetails = () => {
 
   if (loading) {
     return (
-      <div>
+      <div className="fixed inset-0 top-0 left-0 flex items-center justify-center">
         <div className="loader"></div>
       </div>
     );

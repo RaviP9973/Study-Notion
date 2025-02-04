@@ -1,12 +1,9 @@
-export default function GetAvgRating(ratingArr){
-    if(ratingArr?.lenght === 0) return 0;
-    const totalReviewCount = ratingArr?.reduce((acc,curr) => {
-        acc += curr.rating
-        return acc
-    },0)
+export default function GetAvgRating(ratingArr) {
+    if (!ratingArr?.length) return 0;  // Ensure the array is not empty or undefined
 
-    const multiplier = Math.pow(10,1);
-    const avgReviewCount = Math.round((totalReviewCount / ratingArr?.lenght) * multiplier) / multiplier
+    const totalRating = ratingArr.reduce((acc, curr) => acc + (curr.rating || 0), 0);
+    const avgRating = totalRating / ratingArr.length;
 
-    return avgReviewCount
+    // Round to 1 decimal place
+    return Math.round(avgRating * 10) / 10;
 }

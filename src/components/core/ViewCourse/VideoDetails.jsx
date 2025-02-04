@@ -207,7 +207,7 @@ const VideoDetails = () => {
             controls
             playIcon={<BsDisplayFill  size={24}/>}
             style={{ backgroundColor: "#000000" }}
-            playing={true}
+            playing={false}
             onEnded={() => {
               setVideoEnded(true);
             }}

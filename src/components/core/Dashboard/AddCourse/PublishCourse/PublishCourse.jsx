@@ -5,6 +5,8 @@ import IconButton from "../../../../common/IconButton";
 import { resetCourseState, setStep } from "../../../../../slices/courseSlice";
 import { editCourseDetails } from "../../../../../services/operations/courseDetailsAPI";
 import { useNavigate } from "react-router-dom";
+import { FaAngleLeft } from "react-icons/fa";
+
 
 const PublishCourse = () => {
   const { register, handleSubmit, errors, getValues, setValue } = useForm();
@@ -62,26 +64,30 @@ const PublishCourse = () => {
   };
 
   return (
-    <div className="rounded-md border bg-richblack-800">
-      <p>Publish Course</p>
+    <div >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="public">
+        <div className="rounded-md border border-richblack-600 bg-richblack-800 p-5 flex flex-col gap-3">
+      <p className="text-3xl text-richblack-5">Publish Course</p>
+          <label htmlFor="public" >
             <input
               type="checkbox"
               id="public"
               {...register("public", { required: true })}
-            />
-            <span className="ml-3">Make this Course as Public</span>
+              className=""
+              />
+              
+            <span className="ml-3 text-richblack-100 text-lg">Make this Course as Public</span>
           </label>
         </div>
-        <div>
+        <div className="mt-14 flex flex-row justify-between px-5">
           <button
             disabled={loading}
             type="button"
             onClick={goBack}
-            className=""
+            className="bg-richblack-800 px-3 py-2 rounded-lg flex flex-row gap-2 items-center text-richblack-5 "
           >
+            <FaAngleLeft />
+
             Back
           </button>
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactStars from "react-rating-stars-component";
 import {
@@ -8,9 +8,14 @@ import {
 } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { removeFormCart } from "../../../../slices/cartSlice";
+import RatingStars from "../../../common/RatingStars";
 const RenderCartCourses = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
+
+  // useEffect(() => {
+
+  // },[])
   return (
     <div className="text-white flex flex-col gap-3 p-6 bg-gray-900 rounded-lg shadow-lg">
       {cart.map((course, index) => (
@@ -32,15 +37,7 @@ const RenderCartCourses = () => {
             </div>
             <div className="flex items-center gap-2 text-yellow-400">
               <span className="text-sm font-medium">4.8</span>
-              <ReactStars
-                count={5}
-                size={20}
-                edit={false}
-                activeColor="#ffd700"
-                emptyIcon={<MdOutlineStarOutline />}
-                halfIcon={<MdOutlineStarHalf />}
-                fullIcon={<MdOutlineStarPurple500 />}
-              />
+              <RatingStars Review_Count={course?.ratingAndReviews?.length} Star_Size={24}/>
               <span className="text-sm text-gray-400">
                 ({course?.ratingAndReviews?.length} reviews)
               </span>

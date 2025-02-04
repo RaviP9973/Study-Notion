@@ -120,6 +120,8 @@ const CourseInformationForm = () => {
           );
         }
 
+        formData.append("thumbnail",currentValues.courseImage);
+
 
 
         setLoading(true);

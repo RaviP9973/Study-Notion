@@ -10,6 +10,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
   const navigate = useNavigate();
 
   const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT);
@@ -40,7 +41,7 @@ const SignupForm = () => {
     },
   ];
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async(e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -53,8 +54,8 @@ const SignupForm = () => {
       accountType,
     };
 
-    dispatch(setSignupData(signupData));
-    dispatch(sendOTP(formData.email, navigate));
+    await dispatch(setSignupData(signupData));
+    await dispatch(sendOTP(formData.email, navigate));
   };
 
   const handleOnChange = (e) => {

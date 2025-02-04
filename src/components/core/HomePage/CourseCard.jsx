@@ -5,7 +5,7 @@ import { TbHierarchy3 } from "react-icons/tb";
 const CourseCard = ({  cardData, currentCard, setCurrentCard }) => {
   return (
     <div
-      className={`w-[30%]  ${
+      className={`w-full mx-auto md:w-[30%]  ${
         currentCard === cardData.heading ? "bg-white shadow-[12px_12px_0px] shadow-[#FFD60A]" : "bg-richblack-800"
       } transition-all duration-300`  } onClick={()=>{
         setCurrentCard(cardData.heading)

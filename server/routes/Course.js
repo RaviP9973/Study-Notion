@@ -7,6 +7,7 @@ const {
   getCourseDetails,
   updateCourse,
   fetchInstructorCourses,
+  deleteCourse,
 } = require("../controllers/Course");
 const {
   showAllCategory,
@@ -36,11 +37,14 @@ const {
   isAdmin,
 } = require("../middleware/auth");
 
+// const {temp } = require("../controllers/temp")
+
 const { updateCourseProgress } = require("../controllers/CourseProgress")
 
 router.get("/instructorCourses",auth,isInstructor,fetchInstructorCourses);
 router.post("/createCourse", auth, isInstructor, createCourse);
 router.post("/editCourse",auth,isInstructor,updateCourse)
+router.post("/deleteCourse",auth,isInstructor,deleteCourse)
 router.post("/updateCourseProgress",auth,isStudent,updateCourseProgress);
 
 
@@ -62,5 +66,6 @@ router.get("/getAverageRating",getAverageRating)
 router.post("/createRating",auth,isStudent,createRating)
 
 router.get("/getReviews",getAllRating)
+// router.delete("/temp",auth,isInstructor,temp)
 
 module.exports = router;
