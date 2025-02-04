@@ -7,16 +7,27 @@ import ConfirmationModal from "../../../common/ConfimationModal"
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import { useNavigate } from "react-router-dom";
 import { MdDelete, MdEdit } from "react-icons/md";
+import { deleteCourse } from "../../../../services/operations/courseDetailsAPI";
 
 
 const CourseTable = ({ courses, setCourses }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
+  
   const [loading, setLoading] = useState(false);
   const [confirmationModal, setConfirmationModal] = useState(null);
   const navigate = useNavigate();
-  const handleCourseDelete = async() => {
+  const handleCourseDelete = async(courseId) => {
   //  pending
+  console.log("courseId,",courseId);
+  const res = await deleteCourse(courseId,token);
+  console.log(res);
+  if(res){
+    // const updatedCourse = course.filter
+    setCourses(res);
+
+  }
+  setConfirmationModal(null);
   }
 
   return (
@@ -97,7 +108,10 @@ const CourseTable = ({ courses, setCourses }) => {
                   btn1Text: "Delete",
                   btn2Text: "Cancel",
                   btn1Handler: !loading
-                    ? () => handleCourseDelete(course._id)
+                    ? () => {
+                      // console.log("course_uid",course._id)
+                      handleCourseDelete(course._id)
+                    }
                     : () => {},
                   btn2Handler: () => setConfirmationModal(null),
                 });

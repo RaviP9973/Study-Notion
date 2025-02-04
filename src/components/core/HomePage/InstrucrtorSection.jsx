@@ -5,9 +5,9 @@ import CTAButton from "./Button";
 import { FaArrowRightLong } from "react-icons/fa6";
 const InstrucrtorSection = () => {
   return (
-    <div className="mt-14">
-      <div className="flex gap-20 items-center ">
-        <div className="w-[50%]">
+    <div className="mt-14 w-11/12 mx-auto">
+      <div className="flex flex-col-reverse md:flex-row gap-20 items-center ">
+        <div className="w-full md:w-[50%]">
           <img
             src={Intructor}
             alt=""
@@ -15,8 +15,8 @@ const InstrucrtorSection = () => {
           />
         </div>
 
-        <div className="w-[50%] flex flex-col gap-10">
-          <div className="text-4xl font-semibold w-[50%]">
+        <div className="w-full md:w-[50%] flex flex-col gap-10">
+          <div className="text-4xl font-semibold w-full md:w-[50%]">
             Become an <HighlightText text={"Instructor"} />
           </div>
           <p className="font-medium text-[16px] w-[80%] text-richblack-300">
@@ -24,7 +24,9 @@ const InstrucrtorSection = () => {
             StudyNotion. We provide the tools and skills to teach what you love.
           </p>
 
-          <div className="w-fit">
+        </div>
+      </div>
+          <div className="w-fit mt-8 flex ">
             <CTAButton active={true} linkto={"/signup"}>
               <div className="flex flex-row items-center gap-3">
                 Start Learning Today
@@ -32,8 +34,6 @@ const InstrucrtorSection = () => {
               </div>
             </CTAButton>
           </div>
-        </div>
-      </div>
     </div>
   );
 };

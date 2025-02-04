@@ -15,12 +15,12 @@ const CodeBlocks = ({
 
 }) => {
   return (
-    <div className={`flex ${position} my-20 justify-between gap-10 flex-wrap`}>
+    <div className={`flex  ${position} flex-col md:flex-row  my-20 justify-between gap-10 `}>
       {/* section 1 */}
-      <div className="w-[50%] flex flex-col gap-8">
+      <div className="w-[90%] mx-auto md:w-[40%] flex flex-col gap-8">
         {heading}
         <div className="text-richblack-300 font-bold ">{subHeading}</div>
-        <div className="flex gap-7 mt-7">
+        <div className="flex gap-7 mt-7 justify-between px-8">
           <CTAButton active={ctabtn1.active} linkto={ctabtn1.linkto}>
             <div className="flex gap-2 items-center">
               {ctabtn1.btnText}
@@ -35,7 +35,7 @@ const CodeBlocks = ({
 
       {/* section 2 */}
 
-      <div className="h-fit flex flex-row text-[10px] w-[100%] py-3 lg:w-[500px] text-base glass">
+      <div className="h-fit flex flex-row text-[10px] w-[90%] mx-auto md:w-[60%] py-3 lg:w-[500px] text-base glass">
         {/* bg gradient */}
         <div className="text-center flex flex-col w-[10%] text-richblack-400 font-inter font-bold ">
           <p>1</p>
@@ -52,18 +52,20 @@ const CodeBlocks = ({
           <p>12</p>
           <p>13</p>
           <p>14</p>
+          <p>15</p>
         </div>
         <div
           className={`w-[90%] flex flex-col gap-2 font-bold font-mono ${codeColor} pr-2 `}
         >
-           <div className={`${backgroundGradient}`}></div>
+           <div className={`${backgroundGradient} flex`}></div>
             <TypeAnimation
             sequence={[codeblock,2000,""]}
                 repeat={Infinity}
                 
                 style={
                     {
-                        whiteSpace: "pre-line"
+                        whiteSpace: "pre-line",
+                        // text-wrap:"wrap"
                     }
                 }
                 omitDeletionAnimation={true}

@@ -76,7 +76,7 @@ const Home = () => {
               active: false,
             }}
             codeblock={`<!DOCTYPE html>\n
-<html>\n<head>\n<title>Example</title>\n<linkrel="stylesheet"href="styles.css">\n</head>\n<body>\n<h1><ahref="/">Header</a>\n</h1>\n<nav><ahref="one/">One</a><ahref="two/\n">Two</a><ahref="three/">Three</a>\n</nav>\n`}
+<html>\n<head>\n<title>Example</title>\n<linkrel="stylesheet"\nhref="styles.css">\n</head>\n<body>\n<h1><ahref="/">Header</a>\n</h1>\n<nav><ahref="one/">One</a><ahref="two/\n">Two</a><ahref="three/">Three</a>\n</nav>`}
             codeColor={"text-yellow-25"}
             backgroundGradient={"grad"}
           />
@@ -105,7 +105,7 @@ const Home = () => {
               active: false,
             }}
             codeblock={`<!DOCTYPE html>\n
-<html>\n<head>\n<title>Example</title>\n<linkrel="stylesheet"href="styles.css">\n</head>\n<body>\n<h1><ahref="/">Header</a>\n</h1>\n<nav><ahref="one/">One</a><ahref="two/\n">Two</a><ahref="three/">Three</a>\n</nav>\n`}
+<html>\n<head>\n<title>Example</title>\n<linkrel="stylesheet\n"href="styles.css">\n</head>\n<body>\n<h1><ahref="/">Header</a>\n</h1>\n<nav><ahref="one/">One</a><ahref="two/\n">Two</a><ahref="three/">Three</a>\n</nav>`}
             codeColor={"text-yellow-25"}
             backgroundGradient={"grad2"}
           />
@@ -117,9 +117,9 @@ const Home = () => {
       {/* section 2 */}
 
       <div className="bg-pure-greys-5 text-richblack-700">
-        <div className="homepage_bg h-[310px]">
+        <div className="homepage_bg md:h-[310px]">
           <div className="w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-5 mx-auto">
-            <div className="h-[150px]"></div>
+            <div className="md:h-[150px]"></div>
             <div className="flex flex-row gap-7 text-white mt-5">
               <CTAButton active={true} linkto={"/signup"}>
                 <div className="flex gap-3 items-center">
@@ -135,12 +135,12 @@ const Home = () => {
         </div>
 
         <div className="mx-auto w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-5 ">
-          <div className="flex flex-row gap-5 mb-10 mt-20">
-            <div className="text-4xl font-semibold w-[45%]">
+          <div className="flex flex-col md:flex-row gap-5 mb-10 mt-20">
+            <div className="text-4xl font-semibold w-full  md:w-[45%]">
               Get the Skills you need for a
               <HighlightText text={"job that is in demand"}></HighlightText>
             </div>
-            <div className="flex flex-col gap-10 w-[45%] text-[16px] items-start">
+            <div className="flex flex-col gap-10 w-full md:w-[45%] text-[16px] items-start">
               <div>
                 The modern StudyNotion is the dictates its own terms. Today, to
                 be a competitive specialist requires more than professional

@@ -46,13 +46,13 @@ exports.sendOTP = async (req, res) => {
 
     //create entry for otp
     const otpBody = await OTP.create(otpPayload);
-    console.log(otpBody);
+    // console.log(otpBody);
 
     // return response
     res.status(200).json({
       success: true,
       meassage: "OTP sent successfully",
-      otp,
+      // otp,
     });
   } catch (error) {
     console.log("Error in generating opt", error);
@@ -77,6 +77,7 @@ exports.signUp = async (req, res) => {
       // contactNumber,
       otp,
     } = req.body;
+    console.log("req.bodY",req.body);
 
     //validations
     if (

@@ -5,6 +5,8 @@ const bcrypt = require("bcrypt");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 const courseProgress = require("../models/courseProgress");
 const Course = require("../models/Course");
+const { deleteImages} = require("../utils/deleteImageAndVideos");
+// const courseProgress = require("../models/courseProgress")
 
 exports.updateProfile = async (req, res) => {
   try {
@@ -26,6 +28,7 @@ exports.updateProfile = async (req, res) => {
     // }
     const userDetail = await User.findById(id);
     const profile = await Profile.findById(userDetail.additionalDetails);
+    console.log("Additonal details",profile);
 
     const profileDetails = await Profile.findByIdAndUpdate(
       userDetail.additionalDetails,
@@ -42,13 +45,7 @@ exports.updateProfile = async (req, res) => {
       }
     );
     console.log("after profile details");
-    //another method
 
-    // profileDetails.dateOfBirth = dateOfBirth;
-    // profileDetails.about = about;
-    // profileDetails.gender = gender;
-    // profileDetails.contactNumber = contactNumber;
-    // await profileDetails.save();
 
     return res.status(200).json({
       success: true,
@@ -56,6 +53,7 @@ exports.updateProfile = async (req, res) => {
       profileDetails,
     });
   } catch (error) {
+    console.log("error in update profile controller",error);
     return res.status(500).json({
       success: false,
       message: error.message,
@@ -84,6 +82,8 @@ exports.deleteAccount = async (req, res) => {
     // delete profile first
 
     const userDetails = await User.findById({ _id: id });
+    const progressDetails = await courseProgress.find({userId: userDetails._id});
+    console.log("progressDetails",progressDetails);
 
     const passMatch = await bcrypt.compare(password, userDetails.password);
 
@@ -126,7 +126,10 @@ exports.deleteAccount = async (req, res) => {
       );
     }
 
+
+
     // delete user
+    await deleteImages([userDetails.image])
     await User.findByIdAndDelete({ _id: id });
     // return
     return res.status(200).json({
@@ -134,7 +137,8 @@ exports.deleteAccount = async (req, res) => {
       message: "User Account deleted",
     });
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
+    console.log(error);
     return res.status(500).json({
       success: false,
       message: error.message,

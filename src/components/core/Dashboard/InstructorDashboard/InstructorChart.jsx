@@ -9,17 +9,14 @@ const InstructorChart = ({ courses }) => {
 
   // Function to generate random colors
   const getRandomColors = (numColors) => {
-    const colors = [];
-    for (let i = 0; i < numColors; i++) {
-      const color = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+    return Array.from({ length: numColors }, () =>
+      `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
         Math.random() * 256
-      )}, ${Math.floor(Math.random() * 256)})`;
-      colors.push(color);
-    }
-    return colors;
+      )}, ${Math.floor(Math.random() * 256)})`
+    );
   };
 
-  // Create data for chart displaying student info
+  // Data for Students
   const chartDataForStudents = {
     labels: courses.map((course) => course.courseName),
     datasets: [
@@ -30,7 +27,7 @@ const InstructorChart = ({ courses }) => {
     ],
   };
 
-  // Create data for chart displaying income info
+  // Data for Income
   const chartDataForIncome = {
     labels: courses.map((course) => course.courseName),
     datasets: [
@@ -41,24 +38,38 @@ const InstructorChart = ({ courses }) => {
     ],
   };
 
-  // Chart options
-  const options = {
-    
-  };
-
   return (
-    <div>
-      <p>Visualize</p>
-      <div>
-        <button onClick={() => setCurrChart("student")}>Students</button>
-        <button onClick={() => setCurrChart("income")}>Income</button>
+    <div className="w-full p-6 bg-richblack-800 rounded-xl shadow-md flex flex-col gap-5 border border-richblack-700">
+      {/* Title */}
+      <p className="text-2xl font-semibold text-richblack-5">Visualize Data</p>
+
+      {/* Button Toggle */}
+      <div className="flex gap-4">
+        <button
+          className={`px-5 py-2 rounded-lg font-medium transition-all duration-300 ${
+            currChart === "student"
+              ? "bg-yellow-400 text-black shadow-md"
+              : "bg-transparent text-yellow-300 hover:text-yellow-100"
+          }`}
+          onClick={() => setCurrChart("student")}
+        >
+          Students
+        </button>
+        <button
+          className={`px-5 py-2 rounded-lg font-medium transition-all duration-300 ${
+            currChart === "income"
+              ? "bg-yellow-400 text-black shadow-md"
+              : "bg-transparent text-yellow-300 hover:text-yellow-100"
+          }`}
+          onClick={() => setCurrChart("income")}
+        >
+          Income
+        </button>
       </div>
 
-      <div className="w-1/3">
-        <Pie
-          data={currChart === "student" ? chartDataForStudents : chartDataForIncome}
-          options={options}
-        />
+      {/* Chart Display */}
+      <div className="w-[300px] md:w-[400px] mx-auto">
+        <Pie data={currChart === "student" ? chartDataForStudents : chartDataForIncome} />
       </div>
     </div>
   );
