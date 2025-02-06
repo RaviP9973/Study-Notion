@@ -106,7 +106,7 @@ const CourseBuilderForm = () => {
     setValue("sectionName", sectionName);
   };
   return (
-    <div className="text-richblack-5">
+    <div className="w-full h-full  text-richblack-5">
       <p className="text-richblack-5 text-2xl mb-4 font-semibold">
         Course Builder
       </p>

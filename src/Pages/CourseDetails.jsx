@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { buyCourse } from "../services/operations/StudentFeaturesAPI";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchAllCourseDetails } from "../services/operations/courseDetailsAPI";
+import { fetchFullCourseDetails } from "../services/operations/courseDetailsAPI";
 import GetAvgRating from "../utils/avgRating";
 import Error from "../Pages/Error";
 import ConfirmationModal from "../components/common/ConfimationModal";
@@ -30,7 +30,7 @@ const CourseDetails = () => {
       dispatch(setLoading(true));
       // console.log(user)
       try {
-        const result = await fetchAllCourseDetails(courseId,token);
+        const result = await fetchFullCourseDetails(courseId,token);
         // console.log(result.courseDetails)
         if (result) {
           setCourseData(result.courseDetails);

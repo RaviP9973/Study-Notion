@@ -8,6 +8,7 @@ const {
   updateCourse,
   fetchInstructorCourses,
   deleteCourse,
+  getFullCourseDetails,
 } = require("../controllers/Course");
 const {
   showAllCategory,
@@ -58,6 +59,7 @@ router.post("/addSubSection",auth,isInstructor,createSubsection)
 
 router.get("/getAllCourses",showAllCourses);
 router.post("/getCourseDetails",auth,getCourseDetails)
+router.post("/getFullCourseDetails",getFullCourseDetails)
 
 router.post("/createCategory",auth,isAdmin,createCategory)
 router.post("/getCategoryPageDetails",categoryPageDetails);

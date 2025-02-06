@@ -11,7 +11,7 @@ const Dashboard = () => {
     return <div className="loader"></div>;
   }
   return (
-    <div className="relative flex min-h-[calc(100vh-3.5rem)]">
+    <div className="relative flex min-h-[calc(100vh-3.5rem)] gap-5">
       <Sidebar />
       <div className="h-[calc(100vh-3.5rem)] overflow-auto border-2 w-full">
         <div className="mx-auto">

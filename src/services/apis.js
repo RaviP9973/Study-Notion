@@ -36,7 +36,8 @@ export const courseEndpoints = {
   FETCH_INSTRUCTOR_COURSES_API :BASE_URL + "/course/instructorCourses",
   FETCH_ALL_COURSE_DETAILS_API: BASE_URL + "/course/getCourseDetails",
   LECTURE_COMPLETE_API: BASE_URL + "/course/updateCourseProgress",
-  DELETE_COURSE_API: BASE_URL + "/course/deleteCourse"
+  DELETE_COURSE_API: BASE_URL + "/course/deleteCourse",
+  FETCH_FULL_COURSE_DETAILS_API: BASE_URL + "/course/getFullCourseDetails"
 }
 
 export const sectionEndpoints = {

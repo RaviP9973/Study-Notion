@@ -4,7 +4,7 @@ import { categories, courseEndpoints, ratingEndpoints, sectionEndpoints ,subSect
 import { data } from "react-router-dom";
 
 const { CATEGORIES_API } = categories;
-const { CREATE_COURSE_API,EDIT_COURSE_API ,FETCH_INSTRUCTOR_COURSES_API,FETCH_ALL_COURSE_DETAILS_API,LECTURE_COMPLETE_API,DELETE_COURSE_API} = courseEndpoints;
+const { CREATE_COURSE_API,EDIT_COURSE_API ,FETCH_INSTRUCTOR_COURSES_API,FETCH_FULL_COURSE_DETAILS_API,FETCH_ALL_COURSE_DETAILS_API,LECTURE_COMPLETE_API,DELETE_COURSE_API} = courseEndpoints;
 const { EDIT_SECTION_API , CREATE_SECTION_API,DELETE_SECTION_API} = sectionEndpoints;
 const {CREATE_SUBSECTION_API,EDIT_SUBSECTION_API,DELETE_SUBSECTION_API} = subSectionEndpoints;
 const {CREATE_RATING_API,GET_AVG_RATING_API} = ratingEndpoints;
@@ -304,9 +304,38 @@ export const fetchAllCourseDetails= async(courseId,token)=>{
       }
     )
 
-    console.log("FETCH full COURSE details  api response...",response);
+    console.log("FETCH all COURSE details  api response...",response);
     if(!response.data.success){
       throw new Error("Error while fetching all course details");
+    }
+
+    result = response.data.data;
+
+    // toast.success("Lecture updated")
+
+  } catch (error) {
+    console.log("fetch all course details api error...",error);
+    toast.error(error.message);
+  }
+
+  toast.dismiss(toastId);
+  return result;
+}
+export const fetchFullCourseDetails= async(courseId)=>{
+  let result=[] ;
+
+  const toastId = toast.loading("Loading...");
+  const formData = new FormData();
+  formData.append("courseId",courseId);
+  try {
+    const response = await apiConnector("POST",
+      FETCH_FULL_COURSE_DETAILS_API,
+      formData
+    )
+
+    console.log("FETCH full COURSE details  api response...",response);
+    if(!response.data.success){
+      throw new Error("Error while fetching full course details");
     }
 
     result = response.data.data;

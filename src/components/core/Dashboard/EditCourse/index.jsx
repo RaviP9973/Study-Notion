@@ -29,9 +29,12 @@ const EditCourse = () => {
   }, [courseId, token, dispatch]);
 
   return (
-    <div>
-      <h1>Edit course</h1>
-      <div>{course ? <RenderSteps /> : <p>Course not found</p>}</div>
+    <div className="w-full bg-richblack-800">
+      <h1 className="text-3xl text-richblack-5 ml-8">Edit course</h1>
+      <div className=" flex justify-center items-center mx-auto">
+
+      <div className=" ">{course ? <RenderSteps /> : <p>Course not found</p>}</div>
+      </div>
     </div>
   );
 };
