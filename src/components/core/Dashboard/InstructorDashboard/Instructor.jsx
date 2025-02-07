@@ -93,7 +93,7 @@ const Instructor = () => {
               </Link>
 
               </div>
-            <div className="flex justify-between">
+            <div className="flex gap-5">
               {courses.slice(0, 3).map((course) => (
                 <div key={course._id} className="w-[30%] flex flex-col gap-3">
                   <img src={course.thumbnail} alt="" 
@@ -116,7 +116,7 @@ const Instructor = () => {
       ) : (
         <div>
           <p>You have not created any courses yet</p>
-          <Link to="dashboard/addCourse">Create a course</Link>
+          <Link to="/dashboard/add-course">Create a course</Link>
         </div>
       )}
       </div>
