@@ -421,7 +421,7 @@ exports.fetchInstructorCourses = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    const allCourses = await Course.find({ instructor: userId })
+    let allCourses = await Course.find({ instructor: userId })
       .populate({
         path: "courseContent",
         populate: {
@@ -430,6 +430,22 @@ exports.fetchInstructorCourses = async (req, res) => {
       })
       .exec();
 
+      // allCourses = allCourses.toObject();
+      allCourses = allCourses.map(course => course.toObject());
+
+      // console.log("all courses",allCourses);
+      for(var i = 0; i < allCourses.length; i++){
+        let totalDurationInSeconds = 0;
+        // let SubsectionLength = 0;
+        for(var j = 0; j < allCourses[i].courseContent.length; j++){
+          totalDurationInSeconds += allCourses[i].courseContent[j].subSection.reduce((acc, curr) => acc + parseInt(curr.timeDuration), 0);
+
+          allCourses[i].totalDuration = convertSecondsToDuration(totalDurationInSeconds);
+          // console.log(allCourses[i].totalDuration);
+
+        }
+      }
+      console.log("all courses",allCourses);
     return res.status(200).json({
       success: true,
       data: allCourses,
