@@ -38,11 +38,12 @@ export function login(email, password, navigate) {
       }
 
       toast.success("Login Successfull");
-      dispatch(setToken(response.data.token));
-      console.log(response.data.token);
+      const token = response.data.token;
+      console.log("Token received:", token);
+      dispatch(setToken(token));
       const userImage = response.data?.user?.image?  response.data?.user?.image : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`
       dispatch(setUser({...response.data.user,image:userImage}))
-      localStorage.setItem("token",JSON.stringify(response.data.token))
+      localStorage.setItem("token", token);
       localStorage.setItem("user",JSON.stringify(response.data.user))
       navigate("/dashboard/my-profile");
     } catch (error) {
@@ -147,11 +148,12 @@ export function resetPassword(password,confirmPassword,token){
   }
 }
 
-export async function changepassword(token,formData){
+export async function changepassword(token, formData){
   const toastId = toast.loading("Updating Password...")
   try {
-    const {password,newPassword} = formData;
-    const response = await apiConnector("PUT",CHANGE_PASSWORD_API,{password,newPassword} ,
+    const {password, newPassword} = formData;
+    const response = await apiConnector("PUT", CHANGE_PASSWORD_API, 
+      {password, newPassword},
       {
         Authorization: `Bearer ${token}`,
       }
@@ -162,15 +164,12 @@ export async function changepassword(token,formData){
     }else{
       toast.dismiss(toastId);
       toast.success("Password Updated");
-
     }
-
-    
   } catch (error) {
     console.log(error.message);
     toast.error(error.message);
+    toast.dismiss(toastId);
   }
-  toast.dismiss(toastId);
 }
 
 export function logout(navigate){
@@ -178,10 +177,13 @@ export function logout(navigate){
     dispatch(setToken(null));
     dispatch(setUser(null));
     dispatch(resetCart());
+    
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    
     toast.success("Logged out");
     navigate("/");
-    
   }
 }

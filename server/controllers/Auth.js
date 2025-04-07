@@ -186,7 +186,7 @@ exports.login = async (req, res) => {
     if (!existingUser) {
       return res.status(401).json({
         success: false,
-        message: "Use not found",
+        message: "User not found",
       });
     }
 
@@ -205,7 +205,7 @@ exports.login = async (req, res) => {
       //create cookie and send response
 
       const options = {
-        expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+        expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
         httpOnly: true,
       };
       res.cookie("token", token, options).status(200).json({

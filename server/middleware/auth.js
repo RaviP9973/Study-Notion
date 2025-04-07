@@ -6,10 +6,14 @@ const User = require("../models/User");
 exports.auth = async (req, res, next) => {
   try {
     // console.log("Inside the auth");
-    const token =
-      req.cookies.token ||
-      req.body.token ||
-      req.header("Authorization")?.replace("Bearer ", "");
+    let token = req.cookies.token || req.body.token;
+    
+    // Handle Authorization header properly
+    const authHeader = req.header("Authorization");
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.substring(7);
+    }
+    
     // console.log("yaha tk to aa gay")
     if (!token) {
       return res.status(401).json({
@@ -19,18 +23,23 @@ exports.auth = async (req, res, next) => {
     }
 
     //verify token
-    // console.log("after token verification")
     try {
       console.log("Before verification");
+      // Make sure token is properly formatted before verification
       const decode = jwt.verify(token, process.env.JWT_SECRET);
-      // console.log(decode);
-      req.user = decode;
       console.log("After verification");
+      req.user = decode;
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
+      if (error.name === "JsonWebTokenError" || error.message === "jwt malformed") {
+        return res.status(401).json({
+          success: false,
+          message: "Invalid or malformed token. Please login again.",
+        });
+      }
       return res.status(401).json({
         success: false,
-        message:error.message,
+        message: error.message,
       });
     }
     next();
