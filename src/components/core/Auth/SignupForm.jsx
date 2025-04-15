@@ -40,11 +40,69 @@ const SignupForm = () => {
     },
   ];
 
+  // Function to validate email format
+  const isValidEmail = (email) => {
+    // Regular expression for email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return false;
+    }
+    return true;
+  }
+
+  // Function to validate password strength
+  const isStrongPassword = (password) => {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password);
+    
+    if(password.length < minLength) {
+      toast.error("Password must be at least 8 characters long");
+      return false;
+    }
+    if(!hasUpperCase) {
+      toast.error("Password must contain at least one uppercase letter");
+      return false;
+    }
+    if(!hasLowerCase) {
+      toast.error("Password must contain at least one lowercase letter");
+      return false;
+    }
+    if(!hasNumber) {
+      toast.error("Password must contain at least one number");
+      return false;
+    }
+    if(!hasSpecialChar) {
+      toast.error("Password must contain at least one special character");
+      return false;
+    }
+    
+    return true;
+  }
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
+    if(firstName.trim().length === 0 || lastName.trim().length === 0) {
+      toast.error("First Name and Last name can't be empty");
+      return;
+    }
+    
+    // Check if email is valid
+    if(!isValidEmail(email)) {
+      return;
+    }
+    
+    // Check for password strength
+    if(!isStrongPassword(password)) {
+      return;
+    }
+
     if (password !== confirmPassword) {
-      toast.error("Password do not match");
+      toast.error("Passwords do not match");
       return;
     }
 

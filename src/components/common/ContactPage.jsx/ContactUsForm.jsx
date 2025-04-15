@@ -13,8 +13,18 @@ const ContactUsForm = () => {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitSuccessful },
   } = useForm();
+  
+  // Validation patterns
+  const namePattern = /^[A-Za-z]+$/;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  useEffect(() => {
+    setValue("countryCode", "+91");
+  }, [setValue]);
+  
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset({
@@ -23,17 +33,40 @@ const ContactUsForm = () => {
         email: "",
         message: "",
         phoneNo: "",
+        countryCode: "+91",
       });
     }
   }, [reset, isSubmitSuccessful]);
 
+  // Function to validate email format
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const onSubmit = async (data) => {
+    // Validate fields before submission
+    if (data.firstName.trim().length === 0) {
+      toast.error("First name cannot be empty");
+      return;
+    }
+    
+    if (data.lastName.trim().length === 0) {
+      toast.error("Last name cannot be empty");
+      return;
+    }
+    
+    if (!isValidEmail(data.email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+    
     console.log(data);
-    // setloading(true);
+    setloading(true);
     const toastId = toast.loading("Sending Your message...");
     try {
       
-      const phoneNo = data.countryCode + "  " + data.phoneNo;
+      const phoneNo = data.countryCode + data.phoneNo;
       const { firstName, lastName, email, message } = data;
 
       const res = await apiConnector("POST", contactusEndpoint.CONTACT_US_API, {
@@ -54,9 +87,9 @@ const ContactUsForm = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.message);
+      setloading(false);
     }
-    // setloading(false);
-    toast.dismiss(toastId)
+    toast.dismiss(toastId);
   };
 
   return  (
@@ -74,7 +107,6 @@ const ContactUsForm = () => {
               placeholder="Enter first name"
               {...register("firstName", { required: true })}
               className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"
-
             />
             {errors.firstName && (
               <span className=" text-yellow-25">Enter Firstname *</span>
@@ -122,33 +154,31 @@ const ContactUsForm = () => {
           <label htmlFor="phoneNo" className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
             Phone Number
           </label>
-          <div className="flex gap-5">
-            <div className="flex w-[81px] flex-col gap-2">
+          <div className="flex gap-2 items-center">
+            <div className="flex w-[100px] flex-col">
               <select
-                type="text"
                 name="countrycode"
                 id="countryCode"
-                className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"
-
+                className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5 border border-richblack-700 focus:outline-none focus:border-yellow-50 transition-all duration-200"
                 {...register("countryCode", { required: true })}
+                defaultValue="+91"
               >
                 {countryCode.map((item, index) => {
                   return (
-                    <option key={index} value={item.code}>
-                      {item.code} - {item.country}
+                    <option key={index} value={item.code} selected={item.code === "+91"}>
+                      {item.code}
                     </option>
                   );
                 })}
               </select>
             </div>
-            <div className="flex w-[calc(100%-90px)] flex-col gap-2">
+            <div className="flex flex-1 flex-col">
               <input
                 type="tel"
                 name="phoneNo"
                 id="phoneNo"
-                placeholder="12345 67890"
-                className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"
-
+                placeholder="Enter phone number"
+                className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5 border border-richblack-700 focus:outline-none focus:border-yellow-50 transition-all duration-200"
                 {...register("phoneNo", {
                   required: {
                     value: true,
@@ -162,15 +192,20 @@ const ContactUsForm = () => {
                     value: 8,
                     message: "Enter a valid Phone Number *",
                   },
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: "Phone number must contain only digits"
+                  }
                 })}
               />
               {errors.phoneNo && (
-                <span className=" text-yellow-25">
+                <span className="text-yellow-25 text-xs mt-1">
                   {errors.phoneNo.message}
                 </span>
               )}
             </div>
           </div>
+          <p className="text-xs text-richblack-300 mt-1">We'll never share your phone number with anyone else.</p>
         </div>
 
         <div className="flex flex-col gap-2">
