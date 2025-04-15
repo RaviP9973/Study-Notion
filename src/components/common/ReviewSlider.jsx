@@ -39,7 +39,13 @@ const ReviewSlider = () => {
           <Swiper
             spaceBetween={30}
             freeMode={true}
-            slidesPerView={4}
+            // slidesPerView={4}
+            breakpoints={{
+              320: { slidesPerView: 1 },  // For small screens
+              640: { slidesPerView: 2 },  // Medium screens
+              1024: { slidesPerView: 3 }, // Large screens
+              1280: { slidesPerView: 4 }, // Extra large screens
+            }}
             autoplay={{
               delay: 5000,
               disableOnInteraction: true,

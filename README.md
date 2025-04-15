@@ -54,7 +54,7 @@ StudyNotion is a comprehensive online learning platform that connects instructor
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/studynotion.git
+git clone https://github.com/RaviP9973/studynotion.git
 cd studynotion
 ```
 

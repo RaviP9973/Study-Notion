@@ -20,8 +20,8 @@ const RenderTotalAmount = () => {
   return (
     <div className='relative w-[250px] flex flex-col gap-3 bg-richblack-800 p-4'>
       <p className='text-richblack-100'>Total:</p>
-      <p className='text-yellow-50 text-3xl '>Rs {total}</p>
-      <p className='text-richblack-100 line-through'>Rs. {total - (10/100) * total}</p>
+      <p className='text-yellow-50 text-3xl '>Rs. {total - ((10/100) * total)}</p>
+      <p className='text-richblack-100 line-through'>Rs {total}</p>
 
       <IconButton
       text="Buy Now"

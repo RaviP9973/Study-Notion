@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactStars from "react-rating-stars-component";
 import {
@@ -8,9 +8,20 @@ import {
 } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { removeFormCart } from "../../../../slices/cartSlice";
+import RatingStars from "../../../common/RatingStars";
+import GetAvgRating from "../../../../utils/avgRating";
 const RenderCartCourses = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
+  // const [avgRating, setAvgRating] = useState(0);
+
+  // useEffect(() => {
+  //   console.log(cart);
+  //   const avgrating = GetAvgRating(cart?.ratingAndReviews);
+  //   console.log(avgrating)
+  //   setAvgRating(avgrating)
+  // }, []);
+
   return (
     <div className="text-white flex flex-col gap-3 p-6 bg-gray-900 rounded-lg shadow-lg">
       {cart.map((course, index) => (
@@ -31,15 +42,12 @@ const RenderCartCourses = () => {
               <p className="text-sm text-gray-400">{course?.category?.name}</p>
             </div>
             <div className="flex items-center gap-2 text-yellow-400">
-              <span className="text-sm font-medium">4.8</span>
-              <ReactStars
-                count={5}
-                size={20}
-                edit={false}
-                activeColor="#ffd700"
-                emptyIcon={<MdOutlineStarOutline />}
-                halfIcon={<MdOutlineStarHalf />}
-                fullIcon={<MdOutlineStarPurple500 />}
+              <span className="text-sm font-medium">
+                {GetAvgRating(course?.ratingAndReviews)}{" "}
+              </span>
+              <RatingStars
+                Review_Count={GetAvgRating(course?.ratingAndReviews)}
+                Star_Size={24}
               />
               <span className="text-sm text-gray-400">
                 ({course?.ratingAndReviews?.length} reviews)

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { buyCourse } from "../services/operations/StudentFeaturesAPI";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchAllCourseDetails } from "../services/operations/courseDetailsAPI";
+import { fetchFullCourseDetails } from "../services/operations/courseDetailsAPI";
 import GetAvgRating from "../utils/avgRating";
 import Error from "../Pages/Error";
 import ConfirmationModal from "../components/common/ConfimationModal";
@@ -28,10 +28,10 @@ const CourseDetails = () => {
   useEffect(() => {
     const getCourseFullDetails = async () => {
       dispatch(setLoading(true));
-      console.log(user)
+      // console.log(user)
       try {
-        const result = await fetchAllCourseDetails(courseId,token);
-        console.log(result.courseDetails)
+        const result = await fetchFullCourseDetails(courseId,token);
+        // console.log(result.courseDetails)
         if (result) {
           setCourseData(result.courseDetails);
         }
@@ -86,7 +86,7 @@ const CourseDetails = () => {
 
   if (loading) {
     return (
-      <div>
+      <div className="fixed inset-0 top-0 left-0 flex items-center justify-center">
         <div className="loader"></div>
       </div>
     );
@@ -159,7 +159,11 @@ const CourseDetails = () => {
       <div className="w-10/12 mt-8">
         <div className=" w-[65%] border border-richblack-600  p-4">
           <p className="text-3xl">What you'll learn</p>
-          <div>{whatYouWillLearn}</div>
+          <div className="flex flex-col gap-2">{
+            whatYouWillLearn.split("\r\n").map((item,index) => 
+              <p key={index}>{item}</p>) 
+            
+            }</div>
         </div>
       </div>
       <div className="w-10/12 mt-8 ">

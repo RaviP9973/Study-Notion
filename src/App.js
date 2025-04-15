@@ -41,6 +41,8 @@ function App() {
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter ">
       <Navbar />
+      <div className="mt-14">
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/catalog/:catalogName" element={<Catelog /> } />
@@ -125,6 +127,7 @@ function App() {
 
         <Route path="*" element={<Error />} />
       </Routes>
+      </div>
     </div>
   );
 }

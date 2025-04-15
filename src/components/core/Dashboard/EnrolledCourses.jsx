@@ -26,7 +26,7 @@ const EnrolledCourses = () => {
 
 
   return (
-    <div className="text-white bg-gray-900 min-h-[100vh-3.5rem] ">
+    <div className="text-white bg-gray-900 min-h-[100vh-3.5rem] z-[999]">
       <p className="w-11/12 mx-auto">Home / Dashboard / <span className="text-sm text-yellow-100 mb-5">Enrolled Courses</span></p>
   <div className="text-2xl font-semibold mb-6 w-11/12 mx-auto">Enrolled Courses</div>
   {!enrolledCourses ? (
@@ -54,17 +54,17 @@ const EnrolledCourses = () => {
             navigate(`/view-course/course/${course._id}/section/${course.courseContent?.[0]?._id}/subSection/${course?.courseContent?.[0]?.subSection?.[0]?._id}`)
           }}
         >
-          <div className="flex gap-4 items-center w-1/2">
+          <div className="flex flex-col items-start md:flex-row gap-4 lg:items-center w-1/2">
             <img
               src={course.thumbnail}
               alt="Course thumbnail"
               className="w-24 h-16 object-cover rounded-lg"
             />
             <div className="text-sm">
-              <p className="font-medium text-white truncate max-w-[12rem]">
+              <p className="font-medium text-white truncate max-w-[10rem] md:max-w-[12rem]">
                 {course.name}
               </p>
-              <p className="text-gray-400 text-xs truncate max-w-[12rem]">
+              <p className="text-gray-400 text-xs truncate max-w-[10rem] lg:max-w-[12rem]">
                 {course.courseDescription}
               </p>
             </div>
@@ -74,8 +74,8 @@ const EnrolledCourses = () => {
             {course?.totalDuration}
           </div>
 
-          <div className="w-1/4 text-right">
-            <p className="text-sm text-gray-300 mb-2">
+          <div className="w-1/4 flex flex-col-reverse lg:flex-col">
+            <p className="text-sm text-gray-300 mb-2 flex">
               Progress: {course?.progressPercentage}%
             </p>
             <ProgressBar

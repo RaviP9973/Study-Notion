@@ -58,7 +58,7 @@ const NestedView = ({ handleChangeEditSectionName }) => {
   };
   return (
     <div >
-      <div className="rounded-lg bg-richblack-700 p-6 px-8">
+      <div className="rounded-lg relative bg-richblack-700 p-6 px-8">
         {course?.courseContent?.map((section) => (
           <details key={section._id} open className="mb-3">
             <summary className="flex items-center justify-between gap-x-3 border-b-2 ">

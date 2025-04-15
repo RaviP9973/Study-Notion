@@ -7,9 +7,9 @@ body {
   overflow-x: hidden;
 }
 
-.homepage_bg {
+/* .homepage_bg {
   background-image: url("../../Assets/Images/bghome.svg");
-}
+} */
 .grad {
   position: absolute;
   width: 372.95px;

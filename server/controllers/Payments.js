@@ -3,7 +3,7 @@ const { instance } = require("../config/razorpay");
 const Course = require("../models/Course");
 const User = require("../models/User");
 const mailSender = require("../utils/mailSender");
-const { useId } = require("react");
+// const { useId } = require("react");
 const { courseEnrollmentEmail } = require("../mail/courseEnrollmentEmail");
 const { paymentSuccessEmail } = require("../mail/paymentSuccessEmail");
 const crypto = require("crypto");
@@ -209,7 +209,7 @@ exports.sendPaymentSuccessEmail = async(req,res) => {
   const {orderId,paymentId,amount} = req.body;
   const userId = req.user.id;
 
-  if(!orderId || !paymentId || !amount || !useId){
+  if(!orderId || !paymentId || !amount || !userId){
     return res.status(400).json({
       success:false,
       message: "provide all fields"

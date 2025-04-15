@@ -27,7 +27,12 @@ exports.createSection = async (req, res) => {
       {
         new: true,
       }
-    ).populate("courseContent");
+    ).populate({
+      path: "courseContent",
+      populate: {
+        path: "subSection" 
+      },
+    });
     // how to populate subsection here?
 
     // return response

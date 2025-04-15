@@ -75,7 +75,7 @@ const SubSectionModal = ({
 
     if (currentValues.lectureVideo !== modalData.videoUrl);
     {
-      formData.append("video", currentValues.lectureVideo);
+      formData.append("video", currentValues.lectureVideo)
     }
 
     setLoading(true);
@@ -141,13 +141,15 @@ const SubSectionModal = ({
   useOnClickOutside(ref,() => setModalData(null));
   return (
     <div  onClick={(e) => {e.stopPropagation()}} >
-      <div className="absolute top-0 left-[30%] w-1/2 z-50  bg-richblack-600 p-3 rounded-lg h-[calc(100vh-3.5rem)] overflow-y-scroll scrollbar-hide"
+      
+      <div className="absolute top-0 translate-y- left-1/4 w-1/2 z-50  bg-richblack-600 p-3  rounded-lg h-[calc(100vh-3.5rem)]  scrollbar-hide "
       style={{
-        scrollbarWidth: 'none', // For Firefox
-        msOverflowStyle: 'none', // For IE and Edge
+        scrollbarWidth: 'none',
+        msOverflowStyle: 'none',
       }}
       
       ref={ref}>
+        <div className="h-full overflow-y-auto">
         <div className="bg-richblack-800 w-full py-2 px-4 rounded-lg flex justify-between mb-5">
           <p className="text-xl ">
             {view && "Viewing"}
@@ -201,6 +203,7 @@ const SubSectionModal = ({
           <div className="flex items-center justify-end">
           {!view && (
             <IconButton
+              disabled={loading}
               text={loading ? "Loading..." : edit ? "save changes" : "save"}
               customClasses="w-fit mt-10 h-fit bg-yellow-50 border-2 border-yellow-200 text-black font-semibold rounded-lg py-2 px-4 flex items-center justify-center hover:bg-yellow-100 transition duration-300 hover:scale-95"
 
@@ -210,8 +213,10 @@ const SubSectionModal = ({
           </div>
         </form>
       </div>
+        </div>
+        
 
-      <div className='fixed inset-0 z-10 !mt-0 grid place-items-center overflow-auto bg-white bg-opacity-10 backdrop-blur-[3px] over'></div>
+      <div className='absolute inset-0 z-10 !mt-0 grid place-items-center overflow-auto bg-white bg-opacity-10 backdrop-blur-[3px] over'></div>
     </div>
   );
 };

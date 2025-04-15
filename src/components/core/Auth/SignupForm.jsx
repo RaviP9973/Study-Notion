@@ -10,6 +10,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
   const navigate = useNavigate();
 
   const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT);

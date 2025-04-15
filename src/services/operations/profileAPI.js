@@ -94,11 +94,12 @@ export async function updatePersonalDetails(token, formData) {
         Authorization: `Bearer ${token}`,
       }
     );
-    console.log(response);
+
     if (!response.data.success) {
       throw new Error(response.data.message);
     }
 
+    console.log("update user details api response",response);
     const user = JSON.parse(localStorage.getItem("user"));
     user.firstName = firstName || user.firstName;
     user.lastName = lastName || user.lastName;
@@ -112,6 +113,7 @@ export async function updatePersonalDetails(token, formData) {
 
     toast.success("Profile details updated");
   } catch (error) {
+    console.log(error);
     console.log("Error in updating profile api ....", error.message);
     toast.error(error.message);
   }
@@ -126,7 +128,7 @@ export async function deleteProfileFunction(
 ) {
   const toastId = toast.loading("Deleting Your Profile");
   try {
-    console.log("yaha aa gya");
+    // console.log("yaha aa gya");
     const response = await apiConnector(
       "DELETE",
       DELETE_USER_PROFILE_API,
@@ -147,8 +149,8 @@ export async function deleteProfileFunction(
     dispatch(clearAuthState());
     navigate("/login");
   } catch (error) {
-    toast.dismiss(toastId);
-    console.log("Errorr in deleting profile...", error.message);
+    // toast.dismiss(toastId);
+    console.log("Errorr in deleting profile...", error);
     toast.error(error.message);
   }
   toast.dismiss(toastId);
