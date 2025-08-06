@@ -65,9 +65,9 @@ const RequirementsField = ({
         </button>
       </div>
 
-      {requirementList.length > 0 && (
+      {requirementList?.length > 0 && (
         <ul className="flex w-[90%] flex-wrap">
-          {requirementList.map((requirement, index) => (
+          {requirementList?.map((requirement, index) => (
             <li key={index} className=" flex items-center gap-1 bg-yellow-400 py-2 px-3 rounded-full w-fit m-2">
               <span className="text-richblack-5 ">{requirement}</span>
               <button
