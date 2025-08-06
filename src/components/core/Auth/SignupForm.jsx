@@ -41,6 +41,7 @@ const SignupForm = () => {
     },
   ];
 
+
   // Function to validate email format
   const isValidEmail = (email) => {
     // Regular expression for email validation
@@ -85,6 +86,7 @@ const SignupForm = () => {
   }
 
   const handleOnSubmit = (e) => {
+
     e.preventDefault();
 
     if(firstName.trim().length === 0 || lastName.trim().length === 0) {
