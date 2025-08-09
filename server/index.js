@@ -19,7 +19,7 @@ const port = process.env.PORT || 4000;
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
-    origin:"https://study-notion-topaz-ten.vercel.app",
+    origin:"http://localhost:3000",
     credentials:true,
 }))
 

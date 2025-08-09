@@ -308,6 +308,7 @@ const CourseInformationForm = () => {
         <IconButton
           text={!editCourse ? "Next" : "Save Changes"}
           customClasses="w-full mt-10 h-[40px] bg-yellow-50 border-2 border-yellow-200 text-black font-semibold rounded-lg py-2 px-4 flex items-center justify-center hover:bg-yellow-100 transition duration-300 hover:scale-95"
+          type={"submit"}
         />
       </div>
 

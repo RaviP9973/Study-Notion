@@ -8,15 +8,19 @@ const Dashboard = () => {
   const { loading: profileLoading } = useSelector((state) => state.profile);
 
   if (profileLoading || authLoading) {
-    return <div className="loader"></div>;
+    return (
+      <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
+        <div className="loader"></div>
+      </div>
+    );
   }
+
   return (
-    <div className="relative flex min-h-[calc(100vh-3.5rem)] gap-5">
+    <div className="relative flex min-h-[calc(100vh-3.5rem)]">
       <Sidebar />
-      <div className="h-[calc(100vh-3.5rem)] overflow-auto border-2 w-full">
-        <div className="mx-auto">
+      <div className="h-[calc(100vh-3.5rem)] flex-1 overflow-auto">
+        <div className="mx-auto w-11/12 max-w-[1000px] py-10">
           <Outlet />
-          
         </div>
       </div>
     </div>
