@@ -20,6 +20,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
     origin:"https://study-notion-topaz-ten.vercel.app",
+
     credentials:true,
 }))
 

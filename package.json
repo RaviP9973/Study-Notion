@@ -27,6 +27,7 @@
     "react-super-responsive-table": "^6.0.1",
     "react-type-animation": "^3.2.0",
     "redux-toolkit": "^1.1.2",
+    "resend": "^6.6.0",
     "simple-peer": "^9.11.1",
     "socket.io-client": "^4.8.1",
     "swiper": "^11.2.1",
