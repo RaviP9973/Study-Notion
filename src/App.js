@@ -21,15 +21,14 @@ import { useSelector } from "react-redux";
 import Setting from "./components/core/Dashboard/Setting";
 import Contact from "./Pages/Contact";
 import AddCourse from "./components/core/Dashboard/AddCourse";
-import { useEffect } from "react";
 import MyCourses from "./components/core/Dashboard/InstructorCourses/MyCourses";
 import EditCourse from "./components/core/Dashboard/EditCourse";
 import Catelog from "./Pages/Catelog";
 import CourseDetails from "./Pages/CourseDetails";
 import ViewCourse from "./Pages/ViewCourse";
-import VideoDetailsSidebar from "./components/core/ViewCourse/VideoDetailsSidebar";
 import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 import Instructor from "./components/core/Dashboard/InstructorDashboard/Instructor";
+import PurchaseHistory from "./components/core/Dashboard/PurchaseHistory";
 
 
 function App() {
@@ -93,6 +92,10 @@ function App() {
                 element={<EnrolledCourses />}
               />
               <Route path="dashboard/cart" element={<Cart />} />
+              <Route 
+                path="dashboard/purchase-history" 
+                element={<PurchaseHistory />} 
+              />
             </>
           )}
 

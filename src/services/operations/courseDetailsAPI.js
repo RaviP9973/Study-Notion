@@ -292,7 +292,6 @@ export const fetchInstructorCourses= async(token)=>{
 export const fetchAllCourseDetails= async(courseId,token)=>{
   let result=[] ;
 
-  const toastId = toast.loading("Loading...");
   const formData = new FormData();
   formData.append("courseId",courseId);
   try {
@@ -318,13 +317,11 @@ export const fetchAllCourseDetails= async(courseId,token)=>{
     toast.error(error.message);
   }
 
-  toast.dismiss(toastId);
   return result;
 }
 export const fetchFullCourseDetails= async(courseId)=>{
   let result=[] ;
 
-  const toastId = toast.loading("Loading...");
   const formData = new FormData();
   formData.append("courseId",courseId);
   try {
@@ -347,7 +344,6 @@ export const fetchFullCourseDetails= async(courseId)=>{
     toast.error(error.message);
   }
 
-  toast.dismiss(toastId);
   return result;
 }
 export const markLectureAsComplete= async(data,token)=>{

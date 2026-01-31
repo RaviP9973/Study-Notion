@@ -39,8 +39,12 @@ const CourseDetailsCard = ({
   };
 
   const handleShare = () => {
-    copy(window.location.href);
-    toast.success("Link is copied to clipboard");
+    navigator.share({
+      title: 'Check out this course!',
+      text: `I found this course on StudyNotion: ${course.name}`,
+      url: window.location.href
+    });
+    // copy(window.location.href);
     //mujhe new window open krna h jisme sare apps khule
   };
 

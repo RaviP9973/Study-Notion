@@ -7,7 +7,6 @@ import useOnClickOutside from '../../hooks/useOnClickOutside'
 const ConfirmationModal = ({modalData}) => {
 
     useEffect(()=> {
-        console.log("modalData" ,modalData);
     },[])
   // const [open,setOpen] = useState(false);
   const ref = useRef(null);

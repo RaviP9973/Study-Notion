@@ -30,7 +30,7 @@ const EnrolledCourses = () => {
       <p className="w-11/12 mx-auto">Home / Dashboard / <span className="text-sm text-yellow-100 mb-5">Enrolled Courses</span></p>
   <div className="text-2xl font-semibold mb-6 w-11/12 mx-auto">Enrolled Courses</div>
   {!enrolledCourses ? (
-    <div className="w-full h-[calc(100vh-3.5rem)] flex items-center justify-center">
+    <div className="fixed inset-0 flex items-center justify-center">
       <div className="loader"></div>
     </div>
   ) : !enrolledCourses.length ? (

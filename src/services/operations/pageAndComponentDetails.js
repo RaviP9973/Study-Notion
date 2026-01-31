@@ -5,7 +5,6 @@ import {categories} from "../apis"
 const {CATEGORY_PAGE_DETAILS_API} = categories;
 
 export const getCatalogPageData = async (categoryId)=> {
-    const toastId = toast.loading("Loading");
     let result = [];
     try {
         const formData = new FormData();
@@ -23,7 +22,6 @@ export const getCatalogPageData = async (categoryId)=> {
         result = error.response?.data;
 
     }
-    toast.dismiss(toastId);
     return result;
 
 }

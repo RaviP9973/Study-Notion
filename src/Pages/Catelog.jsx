@@ -17,7 +17,6 @@ const Catelog = () => {
       setLoading(true);
       try {
         const response = await fetchCourseCategory();
-        console.log("response", response);
 
         const matchingCategory = response?.find(
           (ct) =>
@@ -47,7 +46,6 @@ const Catelog = () => {
           return;
         }
         const res = await getCatalogPageData(categoryId);
-        console.log("res", res);
         // console.log("abc", res?.selectedCourses[0]?.name);
         setCatalogPageData(res);
       } catch (error) {

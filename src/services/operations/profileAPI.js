@@ -12,7 +12,6 @@ const {
 } = profileEndpoints;
 // CONST {  } = profileEndpoints
 export async function getUserEnrolledCourses(token) {
-  const toastId = toast.loading("Loading...");
   let result = [];
   try {
     // console.log("before the calling of backend");
@@ -25,19 +24,15 @@ export async function getUserEnrolledCourses(token) {
       }
     );
 
-    // console.log("after");
-    console.log("use enrolled api response...", response);
     if (!response.data.success) {
       throw new Error(response.data.message);
     }
 
     result = response?.data?.data;
-    console.log("result...", result);
   } catch (error) {
     console.log("Get use enrolled courses api errpr...", error);
     toast.error(error.message);
   }
-  toast.dismiss(toastId);
   return result;
 }
 

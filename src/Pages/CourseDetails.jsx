@@ -56,9 +56,15 @@ const CourseDetails = () => {
 
     setAverageReviewCount(count);
     setTotalNoOfLectures(lectures);
+    
+    // Set all sections as active by default
+    if (courseData?.courseContent) {
+      const allSectionIds = courseData.courseContent.map(section => section._id);
+      setIsActive(allSectionIds);
+    }
   }, [courseData]);
 
-  const [isActive, setIsActive] = useState(Array(0));
+  const [isActive, setIsActive] = useState([]);
   const handleActive = (id) => {
     setIsActive(
       !isActive.includes(id)
@@ -185,7 +191,7 @@ const CourseDetails = () => {
             <button onClick={() => setIsActive([])}
               
               className="text-yellow-50">
-              Collapse all sections
+              close all
             </button>
           </div>
           </div>
@@ -194,61 +200,63 @@ const CourseDetails = () => {
           yaha pe lectures ka section aur subsection show karana h 
          */}
           <div className="mt-4 w-[65%]">
-            {courseContent?.map((section, index) => (
-              <div key={index} className=" rounded-lg overflow-hidden border border-richblack-600 mb-5">
+            {courseContent?.map((section, index) => {
+              // Calculate total duration for this section
+              const totalSectionDuration = section.subSection.reduce((acc, subsection) => {
+                return acc + (parseInt(subsection.timeDuration) || 0);
+              }, 0);
+              
+              // Convert seconds to minutes
+              const durationInMinutes = Math.ceil(totalSectionDuration / 60);
+              
+              return (
+              <div key={index} className="rounded-lg overflow-hidden border border-richblack-600 mb-5">
                 {/* Section Button */}
                 <button
-                  className={` flex flex-row items-center gap-2 px-6 w-full text-left p-4 text-richblack-5 bg-richblack-700 cursor-pointer transition-all duration-300 ${
-                    isActive.includes(section._id) ? "bg-richblack-200" : ""
+                  className={`flex flex-row items-center gap-2 px-6 w-full text-left p-4 text-richblack-5 bg-richblack-700 cursor-pointer transition-all duration-300 hover:bg-richblack-600 ${
+                    isActive.includes(section._id) ? "bg-richblack-600" : ""
                   }`}
                   onClick={() => handleActive(section._id)}
                 >
-                  <div className="flex justify-between w-full">
-                    <p className="flex flex-row items-center justify-center gap-2">
-                  <FaChevronDown size={14} className={`${isActive.includes(section._id) ? "rotate-180" : ""} transition-all duration-300`}/> 
-                  <span className="truncate">
-                  {section.sectionName}
-                    </span>
-
+                  <div className="flex justify-between w-full items-center">
+                    <p className="flex flex-row items-center gap-2">
+                      <FaChevronDown 
+                        size={14} 
+                        className={`${isActive.includes(section._id) ? "rotate-180" : ""} transition-transform duration-300`}
+                      /> 
+                      <span className="font-medium">
+                        {section.sectionName}
+                      </span>
                     </p>
 
-                    <div className="flex gap-3 ">
-                      <span className="text-yellow-25">{section.subSection.length} Lectures</span>
-                      {/* <span>{yaha pe abhi kam baki h time duration add krna h}</span> */}
-                      <span>30 min</span>
+                    <div className="flex gap-3 items-center">
+                      <span className="text-yellow-25">{section.subSection.length} Lecture{section.subSection.length !== 1 ? 's' : ''}</span>
+                      <span className="text-richblack-100">{durationInMinutes > 0 ? `${durationInMinutes} min` : ''}</span>
                     </div>
                   </div>
-                  
-
-
                 </button>
 
                 {/* Collapsible Content with Animation */}
                 <div
-                  className={`px-4 py-3 bg-transparent text-richblack-5 transition-[max-height h,opacity,py] duration-300  overflow-hidden ${
+                  className={`bg-richblack-800 text-richblack-5 transition-all duration-300 ease-in-out ${
                     isActive.includes(section._id)
-                      ? "max-h-40 opacity-100 py-3"
-                      : "h-0  py-0"
+                      ? "max-h-[1000px] opacity-100 py-3 px-4"
+                      : "max-h-0 opacity-0 py-0 px-4"
                   }`}
                   style={{ overflow: "hidden" }}
                 >
-                  {section.subSection.map((subsection, index) => (
-                    <div key={index} className="py-2"> 
-                    
-                    <p className="flex flex-row items-center gap-2 ">
-                    <LuTvMinimalPlay /> {subsection.title}
-
-                    <FaChevronDown size={14} className={`${isActive.includes(section._id) ? "rotate-180" : ""} transition-all duration-300 text-richblack-100`}/> 
-                    </p>
-                    
-                    
+                  {section.subSection.map((subsection, subIndex) => (
+                    <div key={subIndex} className="py-2 border-b border-richblack-700 last:border-b-0"> 
+                      <p className="flex flex-row items-center gap-2 text-sm">
+                        <LuTvMinimalPlay className="text-richblack-300" /> 
+                        <span>{subsection.title}</span>
+                      </p>
                     </div>
                   ))}
                 </div>
               </div>
-            ))}
-
-
+              );
+            })}
           </div>
 
 
