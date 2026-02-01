@@ -39,7 +39,7 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
       setActiveStatus(courseSectionData?.[currentSectionIndex]?._id);
       setVideobarActive(activeSubsectionId);
     })();
-  }, [courseSectionData, courseEntireData, location.pathname]);
+  }, [courseSectionData, courseEntireData, location.pathname, sectionId, subsectionId]);
   return (
     <>
       <div className="text-white h-full w-full py-4">

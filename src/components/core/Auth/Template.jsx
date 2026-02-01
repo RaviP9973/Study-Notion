@@ -1,4 +1,3 @@
-import { FcGoogle } from "react-icons/fc"
 import { useSelector } from "react-redux"
 
 import frameImg from "../../../Assets/Images/frame.png"

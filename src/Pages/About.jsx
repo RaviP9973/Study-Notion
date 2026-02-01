@@ -32,10 +32,10 @@ const About = () => {
           {/* <div className="absolute translate-y-[-300px] grad"></div> */}
           <div className="grad3 absolute  h-72 w-96 rounded-full blur-xl left-[400px] top-60 opacity-30"></div>
           <div className="absolute bottom-0 left-[50%] grid w-[100%] translate-x-[-50%] translate-y-[30%] grid-cols-3 gap-3 lg:gap-5">
-            <img src={BannerImage1} />
-            <img src={BannerImage2} />
+            <img src={BannerImage1} alt="banner image"/>
+            <img src={BannerImage2} alt="banner image"/>
 
-            <img src={BannerImage3} />
+            <img src={BannerImage3} alt="banner image"/>
           </div>
         </div>
       </section>
