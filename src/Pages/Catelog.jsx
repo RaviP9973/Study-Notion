@@ -93,7 +93,7 @@ const Catelog = () => {
               </div>
             </div>
 
-            {/* section 2 */}
+            {/* section 2 */} 
             <div className="my-10">
               <div  className="text-3xl font-semibold text-richblack-5 mb-4">
                 Top courses in {catalogPageData?.selectedCategory?.name}

@@ -23,7 +23,6 @@ export const contactusEndpoint = {
 export const profileEndpoints = {
   GET_USER_ENROLLED_COURSES_API: BASE_URL + "/profile/getEnrolledCourses",
   GET_USER_DETAILS_API: BASE_URL + "/profile/getUserDetails",
-  GET_USER_DETAILS_API: BASE_URL + "/profile/getUserDetails",
   UPDATE_PROFILE_PICTURE_API: BASE_URL + "/profile/updateDisplayPicture",
   UPDATE_USER_DETAILS_API: BASE_URL + "/profile/updateProfile",
   DELETE_USER_PROFILE_API: BASE_URL + "/profile/deleteProfile",

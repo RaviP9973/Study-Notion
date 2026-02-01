@@ -400,7 +400,7 @@ export const createRating = async(data,token)=>{
 }
 
 export const getAverageRating = async(courseId)=>{
-  const result = 0;
+  let result = 0;
   try {
     const res = await apiConnector("POST",GET_AVG_RATING_API,{courseId});
 
